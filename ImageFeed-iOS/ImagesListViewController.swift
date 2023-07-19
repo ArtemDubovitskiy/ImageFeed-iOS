@@ -7,13 +7,14 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+class ImagesListViewController: UIViewController {
 
+    @IBOutlet private var tableView: UITableView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+//        sleep(3)
         // Do any additional setup after loading the view.
     }
-
-
 }
 
