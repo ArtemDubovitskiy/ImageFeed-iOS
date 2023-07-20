@@ -8,13 +8,17 @@ import UIKit
 
 class ImagesListViewController: UIViewController {
 
+    // MARK: - Outlets
     @IBOutlet private var tableView: UITableView!
     
+    // MARK: - Lifecycle
     override func viewDidLoad() {
 //        tableView.delegate = self
 //        tableView.dataSource = self
+//        tableView.register(ImagesListCell.self, forCellReuseIdentifier: ImagesListCell.reuseIdentifier) // при настройке таблицы с помощью кода оповещаем таблицу о классе ячейки кодом
         super.viewDidLoad()
     }
+    // MARK: - Private functions
 }
 
 extension ImagesListViewController: UITableViewDelegate {
@@ -29,6 +33,17 @@ extension ImagesListViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        return UITableViewCell()
+        let cell = tableView.dequeueReusableCell(withIdentifier: ImagesListCell.reuseIdentifier, for: indexPath)
+        
+        guard let imageListCell = cell as? ImagesListCell else {
+            return UITableViewCell()
+        }
+        configCell(for: imageListCell)
+        return imageListCell
+    }
+}
+
+extension ImagesListViewController {
+    func configCell(for cell: ImagesListCell) {
     }
 }
