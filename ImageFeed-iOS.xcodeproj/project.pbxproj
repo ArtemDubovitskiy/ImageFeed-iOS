@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9183BAB42A6A7B4000DE305D /* SF-Pro.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9183BAB32A6A7B4000DE305D /* SF-Pro.ttf */; };
 		919B7C532A69B6650071D4DF /* ImagesListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 919B7C522A69B6650071D4DF /* ImagesListCell.swift */; };
 		91D8AC4F29DC88B200CFDC55 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91D8AC4E29DC88B200CFDC55 /* AppDelegate.swift */; };
 		91D8AC5129DC88B200CFDC55 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91D8AC5029DC88B200CFDC55 /* SceneDelegate.swift */; };
@@ -17,6 +18,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		9183BAB32A6A7B4000DE305D /* SF-Pro.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-Pro.ttf"; sourceTree = "<group>"; };
 		919B7C522A69B6650071D4DF /* ImagesListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagesListCell.swift; sourceTree = "<group>"; };
 		91D8AC4B29DC88B200CFDC55 /* ImageFeed-iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "ImageFeed-iOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		91D8AC4E29DC88B200CFDC55 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -39,6 +41,24 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		9183BAB52A6A7C9700DE305D /* Presentation */ = {
+			isa = PBXGroup;
+			children = (
+				91D8AC5429DC88B200CFDC55 /* Main.storyboard */,
+			);
+			path = Presentation;
+			sourceTree = "<group>";
+		};
+		9183BAB62A6A7CB800DE305D /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				9183BAB32A6A7B4000DE305D /* SF-Pro.ttf */,
+				91D8AC5729DC88B300CFDC55 /* Assets.xcassets */,
+				91D8AC5929DC88B300CFDC55 /* LaunchScreen.storyboard */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
 		919B7C542A69B6B40071D4DF /* ImagesList */ = {
 			isa = PBXGroup;
 			children = (
@@ -70,9 +90,8 @@
 				91D8AC4E29DC88B200CFDC55 /* AppDelegate.swift */,
 				91D8AC5029DC88B200CFDC55 /* SceneDelegate.swift */,
 				919B7C542A69B6B40071D4DF /* ImagesList */,
-				91D8AC5429DC88B200CFDC55 /* Main.storyboard */,
-				91D8AC5729DC88B300CFDC55 /* Assets.xcassets */,
-				91D8AC5929DC88B300CFDC55 /* LaunchScreen.storyboard */,
+				9183BAB52A6A7C9700DE305D /* Presentation */,
+				9183BAB62A6A7CB800DE305D /* Resources */,
 				91D8AC5C29DC88B300CFDC55 /* Info.plist */,
 			);
 			path = "ImageFeed-iOS";
@@ -137,6 +156,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				91D8AC5B29DC88B300CFDC55 /* LaunchScreen.storyboard in Resources */,
+				9183BAB42A6A7B4000DE305D /* SF-Pro.ttf in Resources */,
 				91D8AC5829DC88B300CFDC55 /* Assets.xcassets in Resources */,
 				91D8AC5629DC88B200CFDC55 /* Main.storyboard in Resources */,
 			);

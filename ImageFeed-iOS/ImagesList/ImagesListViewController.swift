@@ -13,17 +13,12 @@ class ImagesListViewController: UIViewController {
     
     // MARK: - Lifecycle
     override func viewDidLoad() {
-//        tableView.delegate = self
-//        tableView.dataSource = self
-//        tableView.register(ImagesListCell.self, forCellReuseIdentifier: ImagesListCell.reuseIdentifier) // при настройке таблицы с помощью кода оповещаем таблицу о классе ячейки кодом
         super.viewDidLoad()
     }
-    // MARK: - Private functions
 }
-
+    // MARK: - Extensions
 extension ImagesListViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
     }
 }
 
