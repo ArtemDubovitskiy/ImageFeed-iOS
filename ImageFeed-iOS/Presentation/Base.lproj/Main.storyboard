@@ -93,14 +93,14 @@
                             <constraint firstItem="lTH-iO-L37" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="y48-xm-rHv"/>
                         </constraints>
                     </view>
-                    <tabBarItem key="tabBarItem" title="" image="tab_editorial_active" id="yla-BR-H6i"/>
+                    <navigationItem key="navigationItem" id="uv5-JC-p0V"/>
                     <connections>
                         <outlet property="tableView" destination="lTH-iO-L37" id="s9b-jb-P0V"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-815" y="-528"/>
+            <point key="canvasLocation" x="110.68702290076335" y="-528.16901408450713"/>
         </scene>
         <!--Profile View-->
         <scene sceneID="FdV-8g-zvD">
@@ -192,20 +192,43 @@
                         <rect key="frame" x="0.0" y="0.0" width="393" height="49"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <color key="selectedImageTintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="selectedImageTintColor" name="YP White"/>
                         <tabBarAppearance key="standardAppearance">
                             <color key="backgroundColor" name="YP Black"/>
-                            <color key="shadowColor" red="0.0" green="0.0" blue="0.0" alpha="0.29999999999999999" colorSpace="calibratedRGB"/>
                         </tabBarAppearance>
                     </tabBar>
                     <connections>
-                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="viewControllers" id="wf0-PF-Lcf"/>
+                        <segue destination="M5h-36-fSr" kind="relationship" relationship="viewControllers" id="wf0-PF-Lcf"/>
                         <segue destination="unY-Xs-js7" kind="relationship" relationship="viewControllers" id="hpM-fj-Vhg"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="tgR-uv-uxh" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-1769" y="-156"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="hdG-Wd-xoD">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="M5h-36-fSr" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="" image="tab_editorial_active" id="yla-BR-H6i"/>
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="umy-8j-U4c">
+                        <rect key="frame" x="0.0" y="59" width="393" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="tintColor" name="YP White"/>
+                        <color key="barTintColor" name="YP White"/>
+                        <navigationBarAppearance key="standardAppearance">
+                            <color key="backgroundColor" name="YP Black"/>
+                        </navigationBarAppearance>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="rootViewController" id="Fgd-bc-DEJ"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="K8D-O2-pz2" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-816.03053435114498" y="-528.16901408450713"/>
         </scene>
     </scenes>
     <resources>

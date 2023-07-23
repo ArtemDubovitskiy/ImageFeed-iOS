@@ -11,12 +11,12 @@ final class ProfileViewController: UIViewController {
         return .lightContent
     }
     @IBOutlet private var avatarImageView: UIImageView!
-    @IBOutlet var nameLabel: UILabel!
-    @IBOutlet var loginNameLabel: UILabel!
-    @IBOutlet var descriptionLabel: UILabel!
+    @IBOutlet private var nameLabel: UILabel!
+    @IBOutlet private var loginNameLabel: UILabel!
+    @IBOutlet private var descriptionLabel: UILabel!
     
-    @IBOutlet var logoutButton: UIButton!
+    @IBOutlet private var logoutButton: UIButton!
     
-    @IBAction func didTapLogoutButton() {
+    @IBAction private func didTapLogoutButton() {
     }
 }
