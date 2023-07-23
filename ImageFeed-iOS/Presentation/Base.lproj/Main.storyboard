@@ -74,7 +74,6 @@
                                             <outlet property="cellImage" destination="JZ6-Zv-7fx" id="PBf-jh-48J"/>
                                             <outlet property="dateLabel" destination="hbc-Mj-MfI" id="o8Y-mS-cHw"/>
                                             <outlet property="likeButton" destination="usy-Jb-ViS" id="xXR-RS-Lbv"/>
-                                            <segue destination="dyG-ob-2bB" kind="show" id="18X-Al-2BL"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -97,6 +96,7 @@
                     <navigationItem key="navigationItem" id="uv5-JC-p0V"/>
                     <connections>
                         <outlet property="tableView" destination="lTH-iO-L37" id="s9b-jb-P0V"/>
+                        <segue destination="dyG-ob-2bB" kind="show" identifier="ShowSingleImage" id="0i1-Ab-2SX"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -223,6 +223,9 @@
                         </navigationBarAppearance>
                     </navigationBar>
                     <nil name="viewControllers"/>
+                    <toolbar key="toolbar" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="jPR-mB-57e">
+                        <autoresizingMask key="autoresizingMask"/>
+                    </toolbar>
                     <connections>
                         <segue destination="BYZ-38-t0r" kind="relationship" relationship="rootViewController" id="Fgd-bc-DEJ"/>
                     </connections>
@@ -254,7 +257,7 @@
                     </view>
                     <navigationItem key="navigationItem" id="5m1-4I-Ht2"/>
                     <connections>
-                        <outlet property="imageView" destination="IAh-uO-Xlk" id="MtE-za-ajX"/>
+                        <outlet property="imageView" destination="XnI-HF-exm" id="MaF-W9-X5p"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="09o-K9-j80" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
