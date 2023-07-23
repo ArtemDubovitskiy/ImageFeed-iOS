@@ -7,6 +7,9 @@
 import UIKit
 
 final class ImagesListViewController: UIViewController {
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return .lightContent
+    }
 // MARK: - Outlets
     @IBOutlet private weak var tableView: UITableView!
     
@@ -73,3 +76,4 @@ extension ImagesListViewController {
         cell.likeButton.setImage(likeImage, for: .normal)
     }
 }
+
