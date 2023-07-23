@@ -6,10 +6,9 @@
 //
 import UIKit
 
-class ImagesListViewController: UIViewController {
-
-    // MARK: - Outlets
-    @IBOutlet private var tableView: UITableView!
+final class ImagesListViewController: UIViewController {
+// MARK: - Outlets
+    @IBOutlet private weak var tableView: UITableView!
     
     private let photosName: [String] = Array(0..<20).map{ "\($0)" }
     
@@ -20,13 +19,13 @@ class ImagesListViewController: UIViewController {
         formatter.locale = Locale(identifier: "ru_Ru")
         return formatter
     }()
-    // MARK: - Lifecycle
+// MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.contentInset = UIEdgeInsets(top: 12, left: 0, bottom: 12, right: 0)
     }
 }
-    // MARK: - Extensions
+// MARK: - UITableViewDelegate
 extension ImagesListViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {}
     
@@ -42,7 +41,7 @@ extension ImagesListViewController: UITableViewDelegate {
         return cellHight
     }
 }
-
+// MARK: - UITableViewDataSource
 extension ImagesListViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return photosName.count
