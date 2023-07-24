@@ -4,7 +4,6 @@
 //
 //  Created by Artem Dubovitsky on 23.07.2023.
 //
-
 import UIKit
 
 final class SingleImageViewController: UIViewController {
@@ -14,19 +13,27 @@ final class SingleImageViewController: UIViewController {
             imageView.image = image
         }
     }
-    
-    @IBOutlet private var imageView: UIImageView!
-    
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return .lightContent
     }
-    
+// MARK: - Outlets
+    @IBOutlet weak var scrollView: UIScrollView!
+    @IBOutlet private var imageView: UIImageView!
+
+    @IBAction private func didTapBackButton() {
+        dismiss(animated: true, completion: nil)
+    }
+// MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         imageView.image = image
+        scrollView.minimumZoomScale = 0.1
+        scrollView.maximumZoomScale = 1.25
     }
-    
-    @IBAction private func didTapBackButton() {
-        dismiss(animated: true, completion: nil)
+}
+// MARK: - UIScrollViewDelegate
+extension SingleImageViewController: UIScrollViewDelegate {
+    func viewForZooming(in scrollView: UIScrollView) -> UIView? {
+        imageView
     }
 }
