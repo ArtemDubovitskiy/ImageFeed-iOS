@@ -8,13 +8,6 @@ import UIKit
 
 final class ImagesListViewController: UIViewController {
     private let ShowSingleImageSegueIdentifier = "ShowSingleImage"
-    
-    override var preferredStatusBarStyle: UIStatusBarStyle {
-        return .lightContent
-    }
-// MARK: - Outlets
-    @IBOutlet private weak var tableView: UITableView!
-    
     private let photosName: [String] = Array(0..<20).map{ "\($0)" }
     
     private lazy var dateFormatter: DateFormatter = {
@@ -24,6 +17,8 @@ final class ImagesListViewController: UIViewController {
         formatter.locale = Locale(identifier: "ru_Ru")
         return formatter
     }()
+// MARK: - Outlets
+    @IBOutlet private weak var tableView: UITableView!
 // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -34,7 +29,9 @@ final class ImagesListViewController: UIViewController {
         if seque.identifier == ShowSingleImageSegueIdentifier {
             let viewController = seque.destination as! SingleImageViewController
             let indexPath = sender as! IndexPath
-            let image = UIImage(named: photosName[indexPath.row])
+            let imageName = photosName[indexPath.row]
+            let image = UIImage(named: "\(imageName)_full_size") ?? UIImage(named: imageName)
+//            let image = UIImage(named: photosName[indexPath.row])
             viewController.image = image
         } else {
             super.prepare(for: seque, sender: sender)

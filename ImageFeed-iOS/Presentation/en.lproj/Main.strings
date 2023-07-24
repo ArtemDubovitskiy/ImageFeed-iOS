@@ -1,0 +1,15 @@
+
+/* Class = "UIViewController"; title = "ImageList"; ObjectID = "BYZ-38-t0r"; */
+"BYZ-38-t0r.title" = "ImageList";
+
+/* Class = "UILabel"; text = "@ekaterina_nov"; ObjectID = "I7D-My-Dp4"; */
+"I7D-My-Dp4.text" = "@ekaterina_nov";
+
+/* Class = "UILabel"; text = "Hello, world!"; ObjectID = "fpm-JS-JDy"; */
+"fpm-JS-JDy.text" = "Hello, world!";
+
+/* Class = "UILabel"; text = "27 августа 2022"; ObjectID = "hbc-Mj-MfI"; */
+"hbc-Mj-MfI.text" = "27 августа 2022";
+
+/* Class = "UILabel"; text = "Екатерина Новикова"; ObjectID = "hgD-VZ-ePh"; */
+"hgD-VZ-ePh.text" = "Екатерина Новикова";
