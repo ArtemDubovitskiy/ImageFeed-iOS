@@ -153,7 +153,6 @@
                             </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="qOw-kO-dM4"/>
-                        <color key="backgroundColor" name="YP Black"/>
                         <constraints>
                             <constraint firstItem="hDo-Gb-mpU" firstAttribute="leading" secondItem="qOw-kO-dM4" secondAttribute="leading" constant="16" id="0U0-BJ-uOM"/>
                             <constraint firstItem="Bhs-Z8-gpK" firstAttribute="top" secondItem="qOw-kO-dM4" secondAttribute="top" constant="50" id="6zP-G5-c8u"/>
@@ -226,6 +225,9 @@
                     <toolbar key="toolbar" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="jPR-mB-57e">
                         <autoresizingMask key="autoresizingMask"/>
                     </toolbar>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="string" keyPath="UIStatusBarStyle" value="light.content"/>
+                    </userDefinedRuntimeAttributes>
                     <connections>
                         <segue destination="BYZ-38-t0r" kind="relationship" relationship="rootViewController" id="Fgd-bc-DEJ"/>
                     </connections>
