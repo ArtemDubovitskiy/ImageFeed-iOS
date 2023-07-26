@@ -14,10 +14,10 @@ final class SingleImageViewController: UIViewController {
             rescaleAndCenterImageInScrollView(image: image)
         }
     }
-// MARK: - Outlets
+    // MARK: - Outlets
     @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet private var imageView: UIImageView!
-// MARK: - IBAction
+    // MARK: - IBAction
     @IBAction private func didTapBackButton() {
         dismiss(animated: true, completion: nil)
     }
@@ -28,7 +28,7 @@ final class SingleImageViewController: UIViewController {
             )
             present(share, animated: true, completion: nil)
     }
-// MARK: - Lifecycle
+    // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         imageView.image = image
@@ -36,7 +36,7 @@ final class SingleImageViewController: UIViewController {
         scrollView.minimumZoomScale = 0.1
         scrollView.maximumZoomScale = 1.25
     }
-// MARK: - Private Methods
+    // MARK: - Private Methods
     private func rescaleAndCenterImageInScrollView(image: UIImage) {
         let minZoomScale = scrollView.minimumZoomScale
         let maxZoomScale = scrollView.maximumZoomScale

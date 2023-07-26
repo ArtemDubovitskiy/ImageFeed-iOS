@@ -17,21 +17,20 @@ final class ImagesListViewController: UIViewController {
         formatter.locale = Locale(identifier: "ru_Ru")
         return formatter
     }()
-// MARK: - Outlets
+    // MARK: - Outlets
     @IBOutlet private weak var tableView: UITableView!
-// MARK: - Lifecycle
+    // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.contentInset = UIEdgeInsets(top: 12, left: 0, bottom: 12, right: 0)
     }
-// MARK: - PrepareForSegue
+    // MARK: - PrepareForSegue
     override func prepare(for seque: UIStoryboardSegue, sender: Any?) {
         if seque.identifier == ShowSingleImageSegueIdentifier {
             let viewController = seque.destination as! SingleImageViewController
             let indexPath = sender as! IndexPath
             let imageName = photosName[indexPath.row]
             let image = UIImage(named: "\(imageName)_full_size") ?? UIImage(named: imageName)
-//            let image = UIImage(named: photosName[indexPath.row])
             viewController.image = image
         } else {
             super.prepare(for: seque, sender: sender)
