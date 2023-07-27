@@ -50,6 +50,7 @@ final class ProfileViewController: UIViewController {
             with: UIImage(named: "Logout_button")!,
             target: ProfileViewController.self,
             action: #selector(Self.didTapLogoutButton))
+        button.contentEdgeInsets = UIEdgeInsets(top: 11, left: 16, bottom: 11, right: 8)
         button.tintColor = .ypRed
         button.translatesAutoresizingMaskIntoConstraints = false
         return button

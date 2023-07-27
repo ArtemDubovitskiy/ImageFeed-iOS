@@ -11,7 +11,7 @@ final class SingleImageViewController: UIViewController {
         didSet {
             guard isViewLoaded else { return }
             imageView.image = image
-            rescaleAndCenterImageInScrollView(image: image!)
+            rescaleAndCenterImageInScrollView(image: image ?? UIImage())
         }
     }
     // MARK: - Outlets
@@ -32,7 +32,7 @@ final class SingleImageViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         imageView.image = image
-        rescaleAndCenterImageInScrollView(image: image!)
+        rescaleAndCenterImageInScrollView(image: image ?? UIImage())
         scrollView.minimumZoomScale = 0.1
         scrollView.maximumZoomScale = 1.25
     }
