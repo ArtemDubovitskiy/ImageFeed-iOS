@@ -7,7 +7,6 @@
 import UIKit
 
 final class ProfileViewController: UIViewController {
-//    private var label: UILabel?
     
     // MARK: - Private Properties
     private let avatarImageView: UIImageView = {
@@ -48,7 +47,7 @@ final class ProfileViewController: UIViewController {
     
     private let logoutButton: UIButton = {
         let button = UIButton.systemButton(
-            with: UIImage(systemName: "ipad.and.arrow.forward")!,
+            with: UIImage(named: "Logout_button")!,
             target: ProfileViewController.self,
             action: #selector(Self.didTapLogoutButton))
         button.tintColor = .ypRed
@@ -67,7 +66,6 @@ final class ProfileViewController: UIViewController {
         view.addSubview(descriptionLabel)
         view.addSubview(logoutButton)
         
-        
         NSLayoutConstraint.activate([
             avatarImageView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 16),
             avatarImageView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 32),
@@ -84,7 +82,9 @@ final class ProfileViewController: UIViewController {
             descriptionLabel.trailingAnchor.constraint(equalTo: nameLabel.trailingAnchor),
             logoutButton.centerYAnchor.constraint(equalTo: avatarImageView.centerYAnchor),
             logoutButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
-            logoutButton.leadingAnchor.constraint(greaterThanOrEqualTo: avatarImageView.trailingAnchor)
+            logoutButton.leadingAnchor.constraint(greaterThanOrEqualTo: avatarImageView.trailingAnchor),
+            logoutButton.widthAnchor.constraint(equalToConstant: 44),
+            logoutButton.heightAnchor.constraint(equalToConstant: 44)
         ])
     }
     // MARK: - IBAction

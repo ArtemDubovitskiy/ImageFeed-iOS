@@ -7,11 +7,11 @@
 import UIKit
 
 final class SingleImageViewController: UIViewController {
-    var image: UIImage! {
+    var image: UIImage? {
         didSet {
             guard isViewLoaded else { return }
             imageView.image = image
-            rescaleAndCenterImageInScrollView(image: image)
+            rescaleAndCenterImageInScrollView(image: image!)
         }
     }
     // MARK: - Outlets
@@ -32,7 +32,7 @@ final class SingleImageViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         imageView.image = image
-        rescaleAndCenterImageInScrollView(image: image)
+        rescaleAndCenterImageInScrollView(image: image!)
         scrollView.minimumZoomScale = 0.1
         scrollView.maximumZoomScale = 1.25
     }

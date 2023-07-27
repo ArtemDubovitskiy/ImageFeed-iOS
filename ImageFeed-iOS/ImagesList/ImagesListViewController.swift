@@ -27,8 +27,14 @@ final class ImagesListViewController: UIViewController {
     // MARK: - PrepareForSegue
     override func prepare(for seque: UIStoryboardSegue, sender: Any?) {
         if seque.identifier == ShowSingleImageSegueIdentifier {
-            let viewController = seque.destination as! SingleImageViewController
-            let indexPath = sender as! IndexPath
+            guard let viewController = seque.destination as? SingleImageViewController else {
+                assertionFailure("cannot seque.identifier destination")
+                return
+            }
+            guard let indexPath = sender as? IndexPath else {
+                assertionFailure("cannot seque.identifier sender")
+                return
+            }
             let imageName = photosName[indexPath.row]
             let image = UIImage(named: "\(imageName)_full_size") ?? UIImage(named: imageName)
             viewController.image = image
