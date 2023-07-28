@@ -48,7 +48,7 @@ final class ProfileViewController: UIViewController {
     private let logoutButton: UIButton = {
         let button = UIButton.systemButton(
             with: UIImage(named: "Logout_button")!,
-            target: ProfileViewController.self,
+            target: ProfileViewController?.self,
             action: #selector(Self.didTapLogoutButton))
         button.contentEdgeInsets = UIEdgeInsets(top: 11, left: 16, bottom: 11, right: 8)
         button.tintColor = .ypRed
@@ -90,7 +90,7 @@ final class ProfileViewController: UIViewController {
     }
     // MARK: - IBAction
     @objc
-    func didTapLogoutButton() {
+    private func didTapLogoutButton() {
         
     }
 }
