@@ -7,9 +7,7 @@
 import UIKit
 
 final class ImagesListViewController: UIViewController {
-// MARK: - Outlets
-    @IBOutlet private weak var tableView: UITableView!
-    
+    private let ShowSingleImageSegueIdentifier = "ShowSingleImage"
     private let photosName: [String] = Array(0..<20).map{ "\($0)" }
     
     private lazy var dateFormatter: DateFormatter = {
@@ -19,15 +17,31 @@ final class ImagesListViewController: UIViewController {
         formatter.locale = Locale(identifier: "ru_Ru")
         return formatter
     }()
-// MARK: - Lifecycle
+    // MARK: - Outlets
+    @IBOutlet private weak var tableView: UITableView!
+    // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.contentInset = UIEdgeInsets(top: 12, left: 0, bottom: 12, right: 0)
     }
+    // MARK: - PrepareForSegue
+    override func prepare(for seque: UIStoryboardSegue, sender: Any?) {
+        guard seque.identifier == ShowSingleImageSegueIdentifier,
+              let viewController = seque.destination as? SingleImageViewController,
+              let indexPath = sender as? IndexPath else {
+            super.prepare(for: seque, sender: sender)
+            return
+        }
+        let imageName = photosName[indexPath.row]
+        let image = UIImage(named: "\(imageName)_full_size") ?? UIImage(named: imageName)
+        viewController.image = image
+    }
 }
 // MARK: - UITableViewDelegate
 extension ImagesListViewController: UITableViewDelegate {
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {}
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        performSegue(withIdentifier: ShowSingleImageSegueIdentifier, sender: indexPath)
+    }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         guard let image = UIImage(named: photosName[indexPath.row]) else {
@@ -73,3 +87,4 @@ extension ImagesListViewController {
         cell.likeButton.setImage(likeImage, for: .normal)
     }
 }
+
