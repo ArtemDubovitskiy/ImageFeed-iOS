@@ -224,19 +224,27 @@
                                     <action selector="didTapBackButton:" destination="7w3-FD-826" eventType="touchUpInside" id="env-aa-RRV"/>
                                 </connections>
                             </button>
+                            <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" progress="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="gxQ-xI-my7">
+                                <rect key="frame" x="0.0" y="52" width="375" height="4"/>
+                                <color key="progressTintColor" name="YP Black"/>
+                            </progressView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="wgl-H0-de3"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
+                            <constraint firstAttribute="trailing" secondItem="gxQ-xI-my7" secondAttribute="trailing" id="6Vy-fr-fHa"/>
                             <constraint firstItem="K0W-T0-VIh" firstAttribute="top" secondItem="whx-eL-rZr" secondAttribute="top" id="G4M-9h-MnB"/>
                             <constraint firstItem="K0W-T0-VIh" firstAttribute="leading" secondItem="whx-eL-rZr" secondAttribute="leading" id="IC1-0b-pTf"/>
                             <constraint firstAttribute="bottom" secondItem="K0W-T0-VIh" secondAttribute="bottom" id="L6g-ea-amG"/>
                             <constraint firstItem="WiQ-a1-Blu" firstAttribute="top" secondItem="wgl-H0-de3" secondAttribute="top" constant="8" id="U2D-ud-QTD"/>
                             <constraint firstItem="WiQ-a1-Blu" firstAttribute="leading" secondItem="wgl-H0-de3" secondAttribute="leading" constant="8" id="Wi7-gS-hAT"/>
+                            <constraint firstItem="gxQ-xI-my7" firstAttribute="leading" secondItem="whx-eL-rZr" secondAttribute="leading" id="ey0-aj-37Z"/>
                             <constraint firstAttribute="trailing" secondItem="K0W-T0-VIh" secondAttribute="trailing" id="oxi-52-FCc"/>
+                            <constraint firstItem="gxQ-xI-my7" firstAttribute="top" secondItem="WiQ-a1-Blu" secondAttribute="bottom" id="prd-hi-Vno"/>
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="progressView" destination="gxQ-xI-my7" id="Ykm-lF-YOQ"/>
                         <outlet property="webView" destination="K0W-T0-VIh" id="IpT-5V-InJ"/>
                     </connections>
                 </viewController>
