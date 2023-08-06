@@ -7,45 +7,37 @@
 import UIKit
 import WebKit
 
-fileprivate let UnsplashAuthorizeURLString = "https://unsplash.com/oauth/authorize"
-
 protocol WebViewViewControllerDelegate: AnyObject {
     func webViewViewController(_ vc: WebViewViewController, didAuthenticateWithCode code: String)
     func webViewViewControllerDidCancel(_ vc: WebViewViewController)
 }
 
 final class WebViewViewController: UIViewController {
-    
+    private struct WebConstants {
+        static let unsplashAuthorizeURLString = "https://unsplash.com/oauth/authorize"
+        static let code = "code"
+        static let authorizedPath = "/oauth/authorize/native"
+    }
+    // MARK: - Outlets
     @IBOutlet private var webView: WKWebView!
     @IBOutlet private var progressView: UIProgressView!
     
     weak var delegate: WebViewViewControllerDelegate?
     
+    // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         webView.navigationDelegate = self
-        
-        var urlComponents = URLComponents(string: UnsplashAuthorizeURLString)!
-        urlComponents.queryItems = [
-          URLQueryItem(name: "client_id", value: AccessKey),
-          URLQueryItem(name: "redirect_uri", value: RedirectURI),
-          URLQueryItem(name: "response_type", value: "code"),
-          URLQueryItem(name: "scope", value: AccessScope)
-        ]
-        let url = urlComponents.url!
-        
-        let request = URLRequest(url: url)
-        webView.load(request)
+        loadWebView()
         updateProgress()
     }
     
-    @IBAction func didTapBackButton(_ sender: Any?) {
+    @IBAction private func didTapBackButton(_ sender: Any?) {
         delegate?.webViewViewControllerDidCancel(self)
     }
     
     override func viewDidAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
+        super.viewDidAppear(animated)
         webView.addObserver(
             self,
             forKeyPath: #keyPath(WKWebView.estimatedProgress),
@@ -53,7 +45,7 @@ final class WebViewViewController: UIViewController {
             context: nil)
         updateProgress()
     }
-
+    
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         webView.removeObserver(
@@ -81,12 +73,13 @@ final class WebViewViewController: UIViewController {
     }
 }
 
+// MARK: - WKNavigationDelegate
 extension WebViewViewController: WKNavigationDelegate {
     func webView(
         _ webView: WKWebView,
         decidePolicyFor navigationAction: WKNavigationAction,
-        decisionHandler: @escaping (WKNavigationActionPolicy) -> Void
-    ) {
+        decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
+        print("ITS LIT", navigationAction.request.url)
         if let code = code(from: navigationAction) {
             delegate?.webViewViewController(self, didAuthenticateWithCode: code)
             decisionHandler(.cancel)
@@ -94,14 +87,30 @@ extension WebViewViewController: WKNavigationDelegate {
             decisionHandler(.allow)
         }
     }
+}
+
+private extension WebViewViewController {
+    func loadWebView() {
+        var urlComponents = URLComponents(string: WebConstants.unsplashAuthorizeURLString)!
+        urlComponents.queryItems = [
+            URLQueryItem(name: "client_id", value: AccessKey),
+            URLQueryItem(name: "redirect_uri", value: RedirectURI),
+            URLQueryItem(name: "response_type", value: WebConstants.code),
+            URLQueryItem(name: "scope", value: AccessScope)
+        ]
+        if let url = urlComponents.url {
+            let request = URLRequest(url: url)
+            webView.load(request)
+        }
+    }
     
-    private func code(from navigationAction: WKNavigationAction) -> String? {
+    func code(from navigationAction: WKNavigationAction) -> String? {
         if
             let url = navigationAction.request.url,
             let urlComponents = URLComponents(string: url.absoluteString),
-            urlComponents.path == "/oauth/authorize/native",
+            urlComponents.path == WebConstants.authorizedPath,
             let items = urlComponents.queryItems,
-            let codeItem = items.first(where: { $0.name == "code" })
+            let codeItem = items.first(where: { $0.name == WebConstants.code })
         {
             return codeItem.value
         } else {

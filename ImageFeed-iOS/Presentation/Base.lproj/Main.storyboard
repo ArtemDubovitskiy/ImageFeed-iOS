@@ -117,7 +117,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="boC-W1-a8X" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-816" y="138"/>
+            <point key="canvasLocation" x="-818" y="171"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="9sp-G2-uqY">
@@ -139,7 +139,7 @@
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="tgR-uv-uxh" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-2434" y="-157"/>
+            <point key="canvasLocation" x="-1743" y="-160"/>
         </scene>
         <!--Auth View Controller-->
         <scene sceneID="mzN-E8-AUN">
@@ -194,7 +194,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="JgZ-wF-2Vp" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-2434" y="-1239"/>
+            <point key="canvasLocation" x="-817" y="-1239"/>
         </scene>
         <!--WebView View Controller-->
         <scene sceneID="0sq-rd-NGA">
@@ -250,7 +250,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="vfv-53-hSx" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1537" y="-1239"/>
+            <point key="canvasLocation" x="110" y="-1239"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="hdG-Wd-xoD">
@@ -373,7 +373,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="X0R-vV-lEQ" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-3292" y="-1239"/>
+            <point key="canvasLocation" x="-1742" y="-1239"/>
         </scene>
     </scenes>
     <resources>
