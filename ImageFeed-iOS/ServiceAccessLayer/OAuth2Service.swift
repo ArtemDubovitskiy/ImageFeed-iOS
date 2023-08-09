@@ -23,10 +23,8 @@ final class OAuth2Service {
                 let authToken = body.accessToken
                 OAuth2TokenStorage.shared.token = authToken
                 completion(.success(authToken))
-                print ("Token: \(authToken)")
             case .failure(let error):
                 completion(.failure(error))
-                print("Token error: \(error)")
             }
         }
         task.resume()
@@ -114,11 +112,11 @@ extension URLSession {
                     fulfillCompletion(.success(data))
                 } else {
                     fulfillCompletion(.failure(NetworkError.httpStatusCode(statusCode)))
-                    print("dataTask status code: \(statusCode)")
+                    print("DataTask status code: \(statusCode)")
                 }
             } else if let error = error {
                 fulfillCompletion(.failure(NetworkError.urlRequestError(error)))
-                print("dataTask error: \(error)")
+                print("DataTask error: \(error)")
             } else {
                 fulfillCompletion(.failure(NetworkError.urlSessionError))
             }
