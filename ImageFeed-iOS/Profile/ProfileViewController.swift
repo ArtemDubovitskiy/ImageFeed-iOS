@@ -88,9 +88,25 @@ final class ProfileViewController: UIViewController {
             logoutButton.heightAnchor.constraint(equalToConstant: 44)
         ])
     }
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        .lightContent
+    }
     // MARK: - IBAction
     @objc
     private func didTapLogoutButton() {
+        let alert = UIAlertController(
+                    title: "Пока, пока!",
+                    message: "Уверены что хотите выйти?",
+                    preferredStyle: .alert)
         
+        alert.addAction(UIAlertAction(
+                    title: "Да",
+                    style: .default,
+                    handler: nil))
+        alert.addAction(UIAlertAction(
+                    title: "Нет",
+                    style: .default,
+                    handler: nil))
+        self.present(alert, animated: true, completion: nil)
     }
 }

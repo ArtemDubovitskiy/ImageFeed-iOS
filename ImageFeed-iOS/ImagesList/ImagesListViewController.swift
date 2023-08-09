@@ -23,6 +23,13 @@ final class ImagesListViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.contentInset = UIEdgeInsets(top: 12, left: 0, bottom: 12, right: 0)
+        
+        let appearance = UINavigationBarAppearance()
+        appearance.configureWithTransparentBackground()
+        navigationController?.navigationBar.standardAppearance = appearance
+    }
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        .lightContent
     }
     // MARK: - PrepareForSegue
     override func prepare(for seque: UIStoryboardSegue, sender: Any?) {
