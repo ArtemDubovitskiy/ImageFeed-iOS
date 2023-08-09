@@ -14,6 +14,9 @@ final class AuthViewController: UIViewController {
     private let showWebViewSegueIdentifier = "ShowWebView"
     
     weak var delegate: AuthViewControllerDelegate?
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return .lightContent
+    }
         
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == showWebViewSegueIdentifier {

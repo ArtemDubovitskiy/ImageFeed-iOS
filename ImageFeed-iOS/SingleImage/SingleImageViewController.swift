@@ -36,6 +36,9 @@ final class SingleImageViewController: UIViewController {
         scrollView.minimumZoomScale = 0.1
         scrollView.maximumZoomScale = 1.25
     }
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        .lightContent
+    }
     // MARK: - Private Methods
     private func rescaleAndCenterImageInScrollView(image: UIImage) {
         let minZoomScale = scrollView.minimumZoomScale

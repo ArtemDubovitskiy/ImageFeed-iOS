@@ -19,8 +19,8 @@ final class WebViewViewController: UIViewController {
         static let authorizedPath = "/oauth/authorize/native"
     }
     // MARK: - Outlets
-    @IBOutlet private var webView: WKWebView!
-    @IBOutlet private var progressView: UIProgressView!
+    @IBOutlet private weak var webView: WKWebView!
+    @IBOutlet private weak var progressView: UIProgressView!
     
     weak var delegate: WebViewViewControllerDelegate?
     
@@ -30,10 +30,6 @@ final class WebViewViewController: UIViewController {
         webView.navigationDelegate = self
         loadWebView()
         updateProgress()
-    }
-    
-    @IBAction private func didTapBackButton(_ sender: Any?) {
-        delegate?.webViewViewControllerDidCancel(self)
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -53,7 +49,11 @@ final class WebViewViewController: UIViewController {
             forKeyPath: #keyPath(WKWebView.estimatedProgress),
             context: nil)
     }
-    
+// MARK: - IBAction
+    @IBAction private func didTapBackButton(_ sender: Any?) {
+        delegate?.webViewViewControllerDidCancel(self)
+    }
+
     override func observeValue(
         forKeyPath keyPath: String?,
         of object: Any?,

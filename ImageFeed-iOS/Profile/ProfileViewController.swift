@@ -88,6 +88,9 @@ final class ProfileViewController: UIViewController {
             logoutButton.heightAnchor.constraint(equalToConstant: 44)
         ])
     }
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        .lightContent
+    }
     // MARK: - IBAction
     @objc
     private func didTapLogoutButton() {

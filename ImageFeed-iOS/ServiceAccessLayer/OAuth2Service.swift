@@ -9,6 +9,8 @@ import Foundation
 final class OAuth2Service {
 
     static let shared = OAuth2Service()
+    private init() {
+    }
     private let urlSession = URLSession.shared
 
     func fetchOAuthToken(
@@ -112,11 +114,9 @@ extension URLSession {
                     fulfillCompletion(.success(data))
                 } else {
                     fulfillCompletion(.failure(NetworkError.httpStatusCode(statusCode)))
-                    print("DataTask status code: \(statusCode)")
                 }
             } else if let error = error {
                 fulfillCompletion(.failure(NetworkError.urlRequestError(error)))
-                print("DataTask error: \(error)")
             } else {
                 fulfillCompletion(.failure(NetworkError.urlSessionError))
             }
@@ -125,4 +125,3 @@ extension URLSession {
         return task
     }
 }
-

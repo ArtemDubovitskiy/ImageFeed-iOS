@@ -279,10 +279,10 @@
             </objects>
             <point key="canvasLocation" x="110" y="-1239"/>
         </scene>
-        <!--Navigation Controller-->
+        <!--Custom Navigation Controller-->
         <scene sceneID="hdG-Wd-xoD">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="M5h-36-fSr" sceneMemberID="viewController">
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="M5h-36-fSr" customClass="CustomNavigationController" customModule="ImageFeed_iOS" customModuleProvider="target" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="" image="tab_editorial_active" id="yla-BR-H6i"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="umy-8j-U4c">
@@ -384,10 +384,10 @@
             </objects>
             <point key="canvasLocation" x="1052.6717557251909" y="-528.16901408450713"/>
         </scene>
-        <!--Navigation Controller-->
+        <!--Custom Navigation Controller-->
         <scene sceneID="MYn-TH-kwS">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="GWr-o9-CUv" sceneMemberID="viewController">
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="GWr-o9-CUv" customClass="CustomNavigationController" customModule="ImageFeed_iOS" customModuleProvider="target" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationItem key="navigationItem" id="33q-CD-Bno"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="DyE-gV-dF3">
