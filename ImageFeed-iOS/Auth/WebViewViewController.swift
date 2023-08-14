@@ -13,11 +13,7 @@ protocol WebViewViewControllerDelegate: AnyObject {
 }
 
 final class WebViewViewController: UIViewController {
-    private struct WebConstants {
-        static let unsplashAuthorizeURLString = "https://unsplash.com/oauth/authorize"
-        static let code = "code"
-        static let authorizedPath = "/oauth/authorize/native"
-    }
+    private let code = "code"
     // MARK: - Outlets
     @IBOutlet private weak var webView: WKWebView!
     @IBOutlet private weak var progressView: UIProgressView!
@@ -90,12 +86,12 @@ extension WebViewViewController: WKNavigationDelegate {
 
 private extension WebViewViewController {
     func loadWebView() {
-        var urlComponents = URLComponents(string: WebConstants.unsplashAuthorizeURLString)!
+        var urlComponents = URLComponents(string: Constants.unsplashAuthorizeURLString)!
         urlComponents.queryItems = [
-            URLQueryItem(name: "client_id", value: AccessKey),
-            URLQueryItem(name: "redirect_uri", value: RedirectURI),
-            URLQueryItem(name: "response_type", value: WebConstants.code),
-            URLQueryItem(name: "scope", value: AccessScope)
+            URLQueryItem(name: "client_id", value: Constants.accessKey),
+            URLQueryItem(name: "redirect_uri", value: Constants.redirectURI),
+            URLQueryItem(name: "response_type", value: code),
+            URLQueryItem(name: "scope", value: Constants.accessScope)
         ]
         if let url = urlComponents.url {
             let request = URLRequest(url: url)
@@ -107,9 +103,9 @@ private extension WebViewViewController {
         if
             let url = navigationAction.request.url,
             let urlComponents = URLComponents(string: url.absoluteString),
-            urlComponents.path == WebConstants.authorizedPath,
+            urlComponents.path == Constants.authorizedPath,
             let items = urlComponents.queryItems,
-            let codeItem = items.first(where: { $0.name == WebConstants.code })
+            let codeItem = items.first(where: { $0.name == code })
         {
             return codeItem.value
         } else {

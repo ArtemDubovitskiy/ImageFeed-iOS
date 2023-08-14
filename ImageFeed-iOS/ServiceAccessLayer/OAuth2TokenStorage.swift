@@ -14,10 +14,10 @@ final class OAuth2TokenStorage {
     
     var token: String? {
         get {
-            return userDefaults.string(forKey: "token")
+            return userDefaults.string(forKey: Constants.bearerToken)
         }
         set {
-            userDefaults.set(newValue, forKey: "token")
+            userDefaults.set(newValue, forKey: Constants.bearerToken)
         }
     }
 }
