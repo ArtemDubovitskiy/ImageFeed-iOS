@@ -7,7 +7,13 @@
 import UIKit
 
 final class ProfileViewController: UIViewController {
-    
+    let profileService = ProfileService.shared
+    private var profile: Profile = Profile(
+        username: "ekaterina_nov",
+        name: "Екатерина Новикова",
+        loginName: "@ekaterina_nov",
+        bio: "Hello, world!"
+    )
     // MARK: - Private Properties
     private let avatarImageView: UIImageView = {
         let imageView = UIImageView()
@@ -59,6 +65,14 @@ final class ProfileViewController: UIViewController {
     // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        if let profile = profileService.profile {
+            self.profile = profile
+            updateProfileDetails(profile: profile)
+        } else {
+            print("ошибка")
+        }
+
         view.backgroundColor = .ypBlack
         
         view.addSubview(avatarImageView)
@@ -90,6 +104,12 @@ final class ProfileViewController: UIViewController {
     }
     override var preferredStatusBarStyle: UIStatusBarStyle {
         .lightContent
+    }
+    private func updateProfileDetails(profile: Profile) {
+        self.profile = profile
+        nameLabel.text = profile.name
+        loginNameLabel.text = profile.loginName
+        descriptionLabel.text = profile.bio
     }
     // MARK: - IBAction
     @objc

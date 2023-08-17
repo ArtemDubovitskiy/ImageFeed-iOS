@@ -9,12 +9,21 @@ import Foundation
 final class OAuth2Service {
 
     static let shared = OAuth2Service()
-    private init() {
-    }
-    private let urlSession = URLSession.shared
-    
+    private let urlSession: URLSession
     private var task: URLSessionTask?
     private var lastCode: String?
+    private let storage: OAuth2TokenStorage
+    private let builder: URLRequestBuider
+    
+    init(
+        urlSession: URLSession = .shared,
+        storage: OAuth2TokenStorage = .shared,
+        builder: URLRequestBuider = .shared
+    ) {
+        self.urlSession = urlSession
+        self.storage = storage
+        self.builder = builder
+    }
 
     func fetchOAuthToken(
         _ code: String,
@@ -24,14 +33,18 @@ final class OAuth2Service {
         if lastCode == code { return }
         task?.cancel()
         lastCode = code
-        let request = authTokenRequest(code: code)
+        guard let request = authTokenRequest(code: code) else {
+            assertionFailure("Invalid request")
+            completion(.failure(NetworkError.invalidRequest))
+            return
+        }
         let task = object(for: request) { [weak self] result in
             DispatchQueue.main.async {
                 guard let self = self else { return }
                 switch result {
                 case .success(let body):
                     let authToken = body.accessToken
-                    OAuth2TokenStorage.shared.token = authToken
+                    self.storage.token = authToken
                     completion(.success(authToken))
                     self.task = nil
                 case .failure(let error):
@@ -59,16 +72,16 @@ extension OAuth2Service {
         }
     }
 
-    private func authTokenRequest(code: String) -> URLRequest {
-        URLRequest.makeHTTPRequest(
-            path: "/oauth/token"
+    private func authTokenRequest(code: String) -> URLRequest? {
+        builder.makeHTTPRequest(
+            path: "\(Constants.baseAuthTokenPath)"
             + "?client_id=\(Constants.accessKey)"
             + "&&client_secret=\(Constants.secretKey)"
             + "&&redirect_uri=\(Constants.redirectURI)"
             + "&&code=\(code)"
             + "&&grant_type=authorization_code",
             httpMethod: "POST",
-            baseURL: Constants.defaultBaseURL
+            defaultBaseURL: Constants.defaultBaseURLString
         )
     }
 
@@ -86,24 +99,12 @@ extension OAuth2Service {
         }
     }
 }
-
-//MARK: - HTTP Request
-extension URLRequest {
-    static func makeHTTPRequest(
-        path: String,
-        httpMethod: String,
-        baseURL: URL = Constants.defaultBaseURL
-    ) -> URLRequest {
-        var request = URLRequest(url: URL(string: path, relativeTo: baseURL)!)
-        request.httpMethod = httpMethod
-        return request
-    }
-}
 // MARK: - Network Connection
 enum NetworkError: Error {
     case httpStatusCode(Int)
     case urlRequestError(Error)
     case urlSessionError
+    case invalidRequest
 }
 
 extension URLSession {

@@ -11,7 +11,8 @@ enum Constants {
     static let defaultApiBaseURLString = "https://api.unsplash.com"
     static let unsplashAuthorizeURLString = "https://unsplash.com/oauth/authorize"
     static let authorizedPath = "/oauth/authorize/native"
-    static let defaultBaseURL = URL(string: "https://unsplash.com")!
+    static let defaultBaseURLString = "https://unsplash.com"
+    static let baseAuthTokenPath = "/oauth/token"
     // MARK: Unsplash api constants
     static let accessKey = "OcHJu7cYEvzXzyCsFy3-BTjUMLNccpedcCgxqj0rKfE"
     static let secretKey = "EdYkOkzwJunjBY48pJsOrECRMj9xbtrilHN6m53T-1g"
