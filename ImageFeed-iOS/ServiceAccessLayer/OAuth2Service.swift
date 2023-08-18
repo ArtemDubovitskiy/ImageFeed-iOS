@@ -107,7 +107,7 @@ enum NetworkError: Error {
     case invalidRequest
 }
 
-extension URLSession {
+private extension URLSession {
     func data(
         for request: URLRequest,
         completion: @escaping (Result<Data, Error>) -> Void

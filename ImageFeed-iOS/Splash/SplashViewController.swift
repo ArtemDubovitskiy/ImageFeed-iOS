@@ -10,6 +10,7 @@ import ProgressHUD
 final class SplashViewController: UIViewController {
     private let showAuthenticationScreenSegueIdentifier = "ShowAuthenticationScreen"
     private let profileService = ProfileService.shared
+    private let profileImageService = ProfileImageService.shared
     private let storage = OAuth2TokenStorage.shared
     private let service = OAuth2Service.shared
     
@@ -19,6 +20,7 @@ final class SplashViewController: UIViewController {
         
         if let token = storage.token {
             fetchProfile(token: token)
+            switchToTabBarController()
         } else {
             performSegue(withIdentifier: showAuthenticationScreenSegueIdentifier, sender: nil)
         }
@@ -66,6 +68,7 @@ extension SplashViewController: AuthViewControllerDelegate {
     }
     
     private func fetchOAuthToken(_ code: String) {
+        UIBlockingProgressHUD.show()
         service.fetchOAuthToken(code) { [weak self] result in
             guard let self = self else { return }
             switch result {
@@ -84,9 +87,10 @@ extension SplashViewController: AuthViewControllerDelegate {
         profileService.fetchProfile(token) { [weak self] result in
             guard let self = self else { return }
             switch result {
-            case .success:
-                UIBlockingProgressHUD.dismiss()
+            case .success(let profile):
+                profileImageService.fetchProfileImageURL(userName: profile.username) { _ in }
                 self.switchToTabBarController()
+                UIBlockingProgressHUD.dismiss()
             case .failure:
                 UIBlockingProgressHUD.dismiss()
                 // TODO [ Sprint 11 ] показать ошибку

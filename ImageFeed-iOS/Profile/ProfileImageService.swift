@@ -1,46 +1,48 @@
 //
-//  ProfileService.swift
+//  ProfileImageService.swift
 //  ImageFeed-iOS
 //
-//  Created by Artem Dubovitsky on 14.08.2023.
+//  Created by Artem Dubovitsky on 18.08.2023.
 //
 import Foundation
 
-final class ProfileService {
-    static let shared = ProfileService()
-    
+final class ProfileImageService {
+    static let shared = ProfileImageService()
+
     private let urlSession = URLSession.shared
-    private (set) var profile: Profile?
     private var currentTask: URLSessionTask?
     private let builder: URLRequestBuider
-    private var lastToken: String?
+    private (set) var avatarURL: String?
+    private var lastUserName: String?
     
     init(builder: URLRequestBuider = .shared) {
         self.builder = builder
     }
     
-    func fetchProfile(
-        _ token: String,
-        completion: @escaping (Result<Profile, Error>) -> Void
+    func fetchProfileImageURL(
+        userName: String,
+        _ completion: @escaping (Result<String, Error>) -> Void
     ) {
         assert(Thread.isMainThread)
-        if lastToken == token { return }
+        if lastUserName == userName { return }
         currentTask?.cancel()
-        lastToken = token
+        lastUserName = userName
         
-        guard let request = makefetchProfileRequest(token: token) else {
-            assertionFailure("Invalid fetchProfile request")
+        guard let request = makeProfileImageRequest(userName: userName) else {
+            assertionFailure("Invalid fetchProfileImageRequest request")
             completion(.failure(NetworkError.invalidRequest))
             return
         }
-        let currentTask = fetch(for: request) { [weak self] response in
+        let currentTask = fetch(for: request) { [weak self] (result: Result<ProfileResult, Error>) in
             DispatchQueue.main.async {
                 guard let self = self else { return }
-                switch response {
-                case .success(let profileResult):
-                    let profile = Profile(result: profileResult)
-                    self.profile = profile
-                    completion(.success(profile))
+                
+                switch result {
+                case .success(let profilePhoto):
+                    guard let smallPhoto = profilePhoto.profileImage?.small else { return }
+                    self.avatarURL = smallPhoto
+                    completion(.success(smallPhoto))
+                    print("avatar yes")
                     self.currentTask = nil
                 case .failure(let error):
                     completion(.failure(error))
@@ -65,9 +67,9 @@ final class ProfileService {
         }
     }
     
-    private func makefetchProfileRequest(token: String) -> URLRequest? {
+    private func makeProfileImageRequest(userName: String) -> URLRequest? {
         builder.makeHTTPRequest(
-            path: "/me",
+            path: "/users/\(userName)",
             httpMethod: "GET",
             defaultBaseURL: Constants.defaultApiBaseURLString)
     }
@@ -104,4 +106,3 @@ private extension URLSession {
         return task
     }
 }
-
