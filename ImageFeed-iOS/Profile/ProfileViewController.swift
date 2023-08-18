@@ -14,6 +14,7 @@ final class ProfileViewController: UIViewController {
         loginName: "@ekaterina_nov",
         bio: "Hello, world!"
     )
+    private var profileImageServiceObserver: NSObjectProtocol?
     // MARK: - Private Properties
     private let avatarImageView: UIImageView = {
         let imageView = UIImageView()
@@ -81,6 +82,16 @@ final class ProfileViewController: UIViewController {
         view.addSubview(descriptionLabel)
         view.addSubview(logoutButton)
         
+        profileImageServiceObserver = NotificationCenter.default
+            .addObserver(
+                forName: ProfileImageService.DidChangeNotification,
+                object: nil,
+                queue: .main
+            ) { [weak self] _ in
+                guard let self = self else { return }
+                self.updateAvatar()
+            }
+        updateAvatar()
         setupProfileViewConstrains()
     }
     override var preferredStatusBarStyle: UIStatusBarStyle {
@@ -92,6 +103,14 @@ final class ProfileViewController: UIViewController {
         nameLabel.text = profile.name
         loginNameLabel.text = profile.loginName
         descriptionLabel.text = profile.bio
+    }
+    
+    private func updateAvatar() {
+        guard
+            let profileImageURL = ProfileImageService.shared.avatarURL,
+            let url = URL(string: profileImageURL)
+        else { return }
+        // TODO [Sprint 11] - Обновить аватар используя kingfisher
     }
     
     private func setupProfileViewConstrains() {

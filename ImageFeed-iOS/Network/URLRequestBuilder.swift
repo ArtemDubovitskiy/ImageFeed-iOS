@@ -1,5 +1,5 @@
 //
-//  URLSession+Extention.swift
+//  URLRequestBuider.swift
 //  ImageFeed-iOS
 //
 //  Created by Artem Dubovitsky on 15.08.2023.
