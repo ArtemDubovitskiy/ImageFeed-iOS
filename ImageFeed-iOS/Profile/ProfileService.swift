@@ -51,7 +51,7 @@ final class ProfileService {
         self.currentTask = currentTask
         currentTask.resume()
     }
-    
+    // MARK: - Private Methods
     private func fetch(
         for request: URLRequest,
         completion: @escaping (Result<ProfileResult, Error>) -> Void
@@ -72,7 +72,7 @@ final class ProfileService {
             defaultBaseURL: Constants.defaultApiBaseURLString)
     }
 }
-
+// MARK: - Network Connection
 extension URLSession {
     func data(
         for request: URLRequest?,
