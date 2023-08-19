@@ -37,6 +37,7 @@ final class SplashViewController: UIViewController {
     // MARK: - Private Methods
     private func switchToTabBarController() {
         guard let window = UIApplication.shared.windows.first else {
+            showAlert()
             fatalError("Invalid Configuration") }
         let tabBarController = UIStoryboard(name: "Main", bundle: .main)
             .instantiateViewController(withIdentifier: "TabBarViewController")
@@ -65,6 +66,7 @@ extension SplashViewController: AuthViewControllerDelegate {
             guard let self = self else { return }
             self.fetchOAuthToken(code)
         }
+        UIBlockingProgressHUD.show()
     }
     
     private func fetchOAuthToken(_ code: String) {
@@ -74,12 +76,11 @@ extension SplashViewController: AuthViewControllerDelegate {
             switch result {
             case .success(let token):
                 self.fetchProfile(token: token)
-                UIBlockingProgressHUD.dismiss()
             case .failure:
-                UIBlockingProgressHUD.dismiss()
-                // TODO [ Sprint 11 ] показать ошибку
+                self.showAlert()
                 break
             }
+            UIBlockingProgressHUD.dismiss()
         }
     }
     
@@ -90,12 +91,23 @@ extension SplashViewController: AuthViewControllerDelegate {
             case .success(let profile):
                 profileImageService.fetchProfileImageURL(userName: profile.username) { _ in }
                 self.switchToTabBarController()
-                UIBlockingProgressHUD.dismiss()
             case .failure:
-                UIBlockingProgressHUD.dismiss()
-                // TODO [ Sprint 11 ] показать ошибку
+                self.showAlert()
                 break
             }
+            UIBlockingProgressHUD.dismiss()
         }
+    }
+    private func showAlert() {
+        let alert = UIAlertController(
+                    title: "Что-то пошло не так(",
+                    message: "Не удалось войти в систему",
+                    preferredStyle: .alert)
+        
+        alert.addAction(UIAlertAction(
+                    title: "Ок",
+                    style: .default,
+                    handler: nil))
+        self.present(alert, animated: true, completion: nil)
     }
 }
