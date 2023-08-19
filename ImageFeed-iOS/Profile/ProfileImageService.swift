@@ -34,7 +34,7 @@ final class ProfileImageService {
             completion(.failure(NetworkError.invalidRequest))
             return
         }
-        let currentTask = fetch(for: request) { [weak self] (result: Result<ProfileResult, Error>) in
+        currentTask = urlSession.objectTask(for: request) { [weak self] (result: Result<ProfileResult, Error>) in
             DispatchQueue.main.async {
                 guard let self = self else { return }
                 
@@ -47,68 +47,23 @@ final class ProfileImageService {
                         .post(
                             name: ProfileImageService.DidChangeNotification,
                             object: self,
-                            userInfo: ["URL": profilePhoto.profileImage?.small ?? " "])
+                            userInfo: ["URL": profilePhoto.profileImage?.small ?? " "]) // поправить
 //                    print("avatar yes")
-                    self.currentTask = nil
+//                    self.currentTask = nil
                 case .failure(let error):
                     completion(.failure(error))
-                    self.currentTask = nil
+//                    self.currentTask = nil
                 }
             }
         }
-        self.currentTask = currentTask
-        currentTask.resume()
+//        self.currentTask = currentTask
+//        currentTask.resume()
     }
     // MARK: - Private Methods
-    private func fetch(
-        for request: URLRequest,
-        completion: @escaping (Result<ProfileResult, Error>) -> Void
-    ) -> URLSessionTask {
-        let decoder = JSONDecoder()
-        return urlSession.data(for: request) { (result: Result<Data, Error>) in
-            let response = result.flatMap { data -> Result<ProfileResult, Error> in
-                Result { try decoder.decode(ProfileResult.self, from: data) }
-            }
-            completion(response)
-        }
-    }
-    
     private func makeProfileImageRequest(userName: String) -> URLRequest? {
         builder.makeHTTPRequest(
             path: "/users/\(userName)",
             httpMethod: "GET",
             defaultBaseURL: Constants.defaultApiBaseURLString)
-    }
-}
-// MARK: - Network Connection
-private extension URLSession {
-    func data(
-        for request: URLRequest,
-        completion: @escaping (Result<Data, Error>) -> Void
-    ) -> URLSessionTask {
-        let fulfillCompletion: (Result<Data, Error>) -> Void = { result in
-            DispatchQueue.main.async {
-                completion(result)
-            }
-        }
-
-        let task = dataTask(with: request, completionHandler: { data, response, error in
-            if let data = data,
-               let response = response,
-               let statusCode = (response as? HTTPURLResponse)?.statusCode
-            {
-                if 200 ..< 300 ~= statusCode {
-                    fulfillCompletion(.success(data))
-                } else {
-                    fulfillCompletion(.failure(NetworkError.httpStatusCode(statusCode)))
-                }
-            } else if let error = error {
-                fulfillCompletion(.failure(NetworkError.urlRequestError(error)))
-            } else {
-                fulfillCompletion(.failure(NetworkError.urlSessionError))
-            }
-        })
-        task.resume()
-        return task
     }
 }
