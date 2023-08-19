@@ -33,7 +33,7 @@ final class ProfileService {
             completion(.failure(NetworkError.invalidRequest))
             return
         }
-        currentTask = urlSession.objectTask(for: request) {
+        let task = urlSession.objectTask(for: request) {
             [weak self] (response: Result<ProfileResult, Error>) in
             DispatchQueue.main.async {
                 guard let self = self else { return }
@@ -42,15 +42,14 @@ final class ProfileService {
                     let profile = Profile(result: profileResult)
                     self.profile = profile
                     completion(.success(profile))
-//                    self.currentTask = nil
                 case .failure(let error):
                     completion(.failure(error))
-//                    self.currentTask = nil
                 }
+                self.currentTask = nil
             }
         }
-//        self.currentTask = currentTask
-//        currentTask.resume()
+        self.currentTask = task
+        task.resume()
     }
     // MARK: - Private Methods
     private func makefetchProfileRequest(token: String) -> URLRequest? {

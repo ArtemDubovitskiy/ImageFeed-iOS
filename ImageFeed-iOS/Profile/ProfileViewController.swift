@@ -5,9 +5,11 @@
 //  Created by Artem Dubovitsky on 23.07.2023.
 //
 import UIKit
+import Kingfisher
 
 final class ProfileViewController: UIViewController {
     let profileService = ProfileService.shared
+    let profileImageService = ProfileImageService.shared
     private var profile: Profile = Profile(
         username: "ekaterina_nov",
         name: "Екатерина Новикова",
@@ -19,7 +21,7 @@ final class ProfileViewController: UIViewController {
     private let avatarImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.image = UIImage(named: "avatar")
-        imageView.layer.cornerRadius = 35
+//        imageView.layer.cornerRadius = 35
         imageView.layer.masksToBounds = true
         imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
@@ -66,13 +68,6 @@ final class ProfileViewController: UIViewController {
     // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        if let profile = profileService.profile {
-            self.profile = profile
-            updateProfileDetails(profile: profile)
-        } else {
-            print("ошибка")
-        }
 
         view.backgroundColor = .ypBlack
         
@@ -82,16 +77,25 @@ final class ProfileViewController: UIViewController {
         view.addSubview(descriptionLabel)
         view.addSubview(logoutButton)
         
+        if let profile = profileService.profile {
+            self.profile = profile
+            updateProfileDetails(profile: profile)
+        } else {
+            print("ошибка")
+        }
+        
+        if let url = profileImageService.avatarURL {
+            updateAvatar(url: url)
+        }
+        
         profileImageServiceObserver = NotificationCenter.default
             .addObserver(
                 forName: ProfileImageService.DidChangeNotification,
                 object: nil,
                 queue: .main
-            ) { [weak self] _ in
-                guard let self = self else { return }
-                self.updateAvatar()
+            ) { [weak self] notification in
+                self?.updateAvatar(notification: notification)
             }
-        updateAvatar()
         setupProfileViewConstrains()
     }
     override var preferredStatusBarStyle: UIStatusBarStyle {
@@ -105,12 +109,20 @@ final class ProfileViewController: UIViewController {
         descriptionLabel.text = profile.bio
     }
     
-    private func updateAvatar() {
+    @objc
+    private func updateAvatar(notification: Notification) {
         guard
-            let profileImageURL = ProfileImageService.shared.avatarURL,
+            isViewLoaded,
+            let userInfo = notification.userInfo,
+            let profileImageURL = userInfo["URL"] as? String,
             let url = URL(string: profileImageURL)
         else { return }
-        // TODO [Sprint 11] - Обновить аватар используя kingfisher
+        updateAvatar(url: url)
+    }
+    
+    private func updateAvatar(url: URL) {
+        avatarImageView.kf.indicatorType = .activity
+        avatarImageView.kf.setImage(with: url)
     }
     
     private func setupProfileViewConstrains() {

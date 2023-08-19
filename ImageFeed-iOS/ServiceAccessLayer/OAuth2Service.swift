@@ -38,7 +38,7 @@ final class OAuth2Service {
             completion(.failure(NetworkError.invalidRequest))
             return
         }
-        currentTask = urlSession.objectTask(for: request) { [weak self] (response: Result<OAuthTokenResponseBody, Error>) in
+        let task = urlSession.objectTask(for: request) { [weak self] (response: Result<OAuthTokenResponseBody, Error>) in
             DispatchQueue.main.async {
                 guard let self = self else { return }
                 switch response {
@@ -46,15 +46,14 @@ final class OAuth2Service {
                     let authToken = body.accessToken
                     self.storage.token = authToken
                     completion(.success(authToken))
-//                    self.currentTask = nil
                 case .failure(let error):
                     completion(.failure(error))
-//                    self.lastCode = nil
                 }
+                self.currentTask = nil
             }
         }
-//        self.currentTask = currentTask
-//        currentTask.resume()
+        self.currentTask = task
+        task.resume()
     }
 }
 

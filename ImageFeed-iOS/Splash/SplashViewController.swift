@@ -13,6 +13,7 @@ final class SplashViewController: UIViewController {
     private let profileImageService = ProfileImageService.shared
     private let storage = OAuth2TokenStorage.shared
     private let service = OAuth2Service.shared
+    private var profile: Profile?
     
     // MARK: - Lifecycle
     override func viewDidAppear(_ animated: Bool) {
@@ -89,7 +90,8 @@ extension SplashViewController: AuthViewControllerDelegate {
             guard let self = self else { return }
             switch result {
             case .success(let profile):
-                profileImageService.fetchProfileImageURL(userName: profile.username) { _ in }
+                self.profile = profile
+                self.profileImageService.fetchProfileImageURL(userName: profile.username) { _ in }
                 self.switchToTabBarController()
             case .failure:
                 self.showAlert()

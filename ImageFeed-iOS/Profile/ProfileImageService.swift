@@ -13,7 +13,7 @@ final class ProfileImageService {
     private let urlSession = URLSession.shared
     private var currentTask: URLSessionTask?
     private let builder: URLRequestBuider
-    private (set) var avatarURL: String?
+    private (set) var avatarURL: URL?
     private var lastUserName: String?
     
     init(builder: URLRequestBuider = .shared) {
@@ -34,30 +34,28 @@ final class ProfileImageService {
             completion(.failure(NetworkError.invalidRequest))
             return
         }
-        currentTask = urlSession.objectTask(for: request) { [weak self] (result: Result<ProfileResult, Error>) in
+        let task = urlSession.objectTask(for: request) { [weak self]
+            (result: Result<ProfileResult, Error>) in
             DispatchQueue.main.async {
                 guard let self = self else { return }
                 
                 switch result {
                 case .success(let profilePhoto):
-                    guard let smallPhoto = profilePhoto.profileImage?.small else { return }
-                    self.avatarURL = smallPhoto
-                    completion(.success(smallPhoto))
+                    guard let profilePhoto = profilePhoto.profileImage?.small else { return }
+                    self.avatarURL = URL(string: profilePhoto)
                     NotificationCenter.default
                         .post(
                             name: ProfileImageService.DidChangeNotification,
                             object: self,
-                            userInfo: ["URL": profilePhoto.profileImage?.small ?? " "]) // поправить
-//                    print("avatar yes")
-//                    self.currentTask = nil
+                            userInfo: ["URL": profilePhoto])
                 case .failure(let error):
                     completion(.failure(error))
-//                    self.currentTask = nil
                 }
+                self.currentTask = nil
             }
         }
-//        self.currentTask = currentTask
-//        currentTask.resume()
+        self.currentTask = task
+        task.resume()
     }
     // MARK: - Private Methods
     private func makeProfileImageRequest(userName: String) -> URLRequest? {
