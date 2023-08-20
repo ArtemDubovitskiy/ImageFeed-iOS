@@ -98,6 +98,17 @@ final class ProfileViewController: UIViewController {
             }
         setupProfileViewConstrains()
     }
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        guard let profile = profileService.profile else {
+            assertionFailure("no saved profile")
+            return }
+        self.nameLabel.text = profile.name
+        self.descriptionLabel.text = profile.bio
+        self.loginNameLabel.text = profile.loginName
+        
+        profileImageService.fetchProfileImageURL(userName: profile.username) { _ in }
+    }
     override var preferredStatusBarStyle: UIStatusBarStyle {
         .lightContent
     }

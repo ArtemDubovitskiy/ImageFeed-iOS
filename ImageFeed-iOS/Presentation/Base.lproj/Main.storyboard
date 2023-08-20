@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="VCZ-bY-n2l">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
@@ -119,37 +119,10 @@
             </objects>
             <point key="canvasLocation" x="-818" y="171"/>
         </scene>
-        <!--Splash View Controller-->
-        <scene sceneID="Mm7-1h-BIU">
-            <objects>
-                <viewController id="VCZ-bY-n2l" customClass="SplashViewController" customModule="ImageFeed_iOS" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="8F2-K8-BPP">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Logo" translatesAutoresizingMaskIntoConstraints="NO" id="zrY-mo-atR">
-                                <rect key="frame" x="169.5" y="409" width="75" height="78"/>
-                            </imageView>
-                        </subviews>
-                        <viewLayoutGuide key="safeArea" id="LAt-4v-P6C"/>
-                        <color key="backgroundColor" name="YP Black"/>
-                        <constraints>
-                            <constraint firstItem="zrY-mo-atR" firstAttribute="centerX" secondItem="8F2-K8-BPP" secondAttribute="centerX" id="AwZ-em-mLG"/>
-                            <constraint firstItem="zrY-mo-atR" firstAttribute="centerY" secondItem="8F2-K8-BPP" secondAttribute="centerY" id="aSs-0l-uv0"/>
-                        </constraints>
-                    </view>
-                    <connections>
-                        <segue destination="GWr-o9-CUv" kind="presentation" identifier="ShowAuthenticationScreen" modalPresentationStyle="fullScreen" id="RYQ-e2-bnz"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="JcH-xG-9Vj" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="-2910" y="-528"/>
-        </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="9sp-G2-uqY">
             <objects>
-                <tabBarController storyboardIdentifier="TabBarViewController" id="Z6b-fI-Sah" customClass="TabBarController" sceneMemberID="viewController">
+                <tabBarController storyboardIdentifier="TabBarViewController" id="Z6b-fI-Sah" customClass="TabBarController" customModule="ImageFeed_iOS" customModuleProvider="target" sceneMemberID="viewController">
                     <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="Bs4-SM-AeE">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="49"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -167,7 +140,7 @@
         <!--Auth View Controller-->
         <scene sceneID="mzN-E8-AUN">
             <objects>
-                <viewController title="Auth View Controller" id="jIe-cO-eYR" customClass="AuthViewController" customModule="ImageFeed_iOS" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="AuthViewController" title="Auth View Controller" id="jIe-cO-eYR" customClass="AuthViewController" customModule="ImageFeed_iOS" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="t3Z-8l-P0A">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -180,7 +153,7 @@
                                 </constraints>
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AVN-by-YQe">
-                                <rect key="frame" x="16" y="758" width="382" height="48"/>
+                                <rect key="frame" x="16" y="724" width="382" height="48"/>
                                 <color key="backgroundColor" name="YP White"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="48" id="pZz-vk-KUr"/>
@@ -387,7 +360,7 @@
                     <toolbarItems/>
                     <navigationItem key="navigationItem" id="33q-CD-Bno"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="DyE-gV-dF3">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
+                        <rect key="frame" x="0.0" y="48" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
@@ -402,7 +375,6 @@
     </scenes>
     <resources>
         <image name="0" width="200" height="132"/>
-        <image name="Logo" width="75" height="78"/>
         <image name="auth_screen_logo" width="60" height="60"/>
         <image name="back_button" width="24" height="24"/>
         <image name="like_button_active" width="44" height="44"/>

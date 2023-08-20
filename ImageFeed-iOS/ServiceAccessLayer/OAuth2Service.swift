@@ -30,9 +30,11 @@ final class OAuth2Service {
         completion: @escaping (Result<String, Error>) -> Void
     ) {
         assert(Thread.isMainThread)
-        if lastCode == code { return }
-        currentTask?.cancel()
-        lastCode = code
+        guard code != lastCode else { return }
+//        if lastCode == code { return }
+//        currentTask?.cancel()
+//        lastCode = code
+        currentTask = nil
         guard let request = authTokenRequest(code: code) else {
             assertionFailure("Invalid request")
             completion(.failure(NetworkError.invalidRequest))
@@ -49,7 +51,7 @@ final class OAuth2Service {
                 case .failure(let error):
                     completion(.failure(error))
                 }
-                self.currentTask = nil
+//                self.currentTask = nil
             }
         }
         self.currentTask = task

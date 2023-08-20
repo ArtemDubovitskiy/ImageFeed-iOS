@@ -20,15 +20,10 @@ final class ProfileService {
     }
     
     func fetchProfile(
-        _ token: String,
         completion: @escaping (Result<Profile, Error>) -> Void
     ) {
         assert(Thread.isMainThread)
-        if lastToken == token { return }
-        currentTask?.cancel()
-        lastToken = token
-        
-        guard let request = makefetchProfileRequest(token: token) else {
+        guard let request = makefetchProfileRequest() else {
             assertionFailure("Invalid fetchProfile request")
             completion(.failure(NetworkError.invalidRequest))
             return
@@ -45,14 +40,13 @@ final class ProfileService {
                 case .failure(let error):
                     completion(.failure(error))
                 }
-                self.currentTask = nil
             }
         }
         self.currentTask = task
         task.resume()
     }
     // MARK: - Private Methods
-    private func makefetchProfileRequest(token: String) -> URLRequest? {
+    private func makefetchProfileRequest() -> URLRequest? {
         builder.makeHTTPRequest(
             path: "/me",
             httpMethod: "GET",

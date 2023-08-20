@@ -25,10 +25,11 @@ final class ProfileImageService {
         _ completion: @escaping (Result<String, Error>) -> Void
     ) {
         assert(Thread.isMainThread)
-        if lastUserName == userName { return }
-        currentTask?.cancel()
-        lastUserName = userName
-        
+//        if lastUserName == userName { return }
+//
+//        lastUserName = userName
+//        task?.cancel()
+//        currentTask?.cancel()
         guard let request = makeProfileImageRequest(userName: userName) else {
             assertionFailure("Invalid fetchProfileImageRequest request")
             completion(.failure(NetworkError.invalidRequest))
@@ -43,6 +44,7 @@ final class ProfileImageService {
                 case .success(let profilePhoto):
                     guard let profilePhoto = profilePhoto.profileImage?.small else { return }
                     self.avatarURL = URL(string: profilePhoto)
+                    completion(.success(profilePhoto))
                     NotificationCenter.default
                         .post(
                             name: ProfileImageService.DidChangeNotification,
