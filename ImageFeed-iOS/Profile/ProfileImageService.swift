@@ -25,11 +25,6 @@ final class ProfileImageService {
         _ completion: @escaping (Result<String, Error>) -> Void
     ) {
         assert(Thread.isMainThread)
-//        if lastUserName == userName { return }
-//
-//        lastUserName = userName
-//        task?.cancel()
-//        currentTask?.cancel()
         guard let request = makeProfileImageRequest(userName: userName) else {
             assertionFailure("Invalid fetchProfileImageRequest request")
             completion(.failure(NetworkError.invalidRequest))

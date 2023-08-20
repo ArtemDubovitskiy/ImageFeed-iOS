@@ -29,6 +29,7 @@ final class SplashViewController: UIViewController {
         
         setupSplashViewConstrains()
     }
+    
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
@@ -88,10 +89,8 @@ extension SplashViewController: AuthViewControllerDelegate {
         UIBlockingProgressHUD.show()
         dismiss(animated: true) { [weak self] in
             guard let self = self else { return }
-//            UIBlockingProgressHUD.show()
             self.fetchOAuthToken(code)
         }
-//        UIBlockingProgressHUD.show()
     }
     
     private func fetchOAuthToken(_ code: String) {
@@ -109,7 +108,6 @@ extension SplashViewController: AuthViewControllerDelegate {
     }
     
     private func fetchProfile() {
-//        UIBlockingProgressHUD.show()
         profileService.fetchProfile() { [weak self] result in
             guard let self = self else { return }
             switch result {
@@ -119,7 +117,6 @@ extension SplashViewController: AuthViewControllerDelegate {
                 self.switchToTabBarController()
             case .failure:
                 showAlert()
-//                break
             }
             UIBlockingProgressHUD.dismiss()
         }

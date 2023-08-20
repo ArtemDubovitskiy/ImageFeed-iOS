@@ -81,7 +81,7 @@ final class ProfileViewController: UIViewController {
             self.profile = profile
             updateProfileDetails(profile: profile)
         } else {
-            print("ошибка")
+            print("error")
         }
         
         if let url = profileImageService.avatarURL {

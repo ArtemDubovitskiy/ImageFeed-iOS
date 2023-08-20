@@ -31,9 +31,6 @@ final class OAuth2Service {
     ) {
         assert(Thread.isMainThread)
         guard code != lastCode else { return }
-//        if lastCode == code { return }
-//        currentTask?.cancel()
-//        lastCode = code
         currentTask = nil
         guard let request = authTokenRequest(code: code) else {
             assertionFailure("Invalid request")
@@ -51,7 +48,6 @@ final class OAuth2Service {
                 case .failure(let error):
                     completion(.failure(error))
                 }
-//                self.currentTask = nil
             }
         }
         self.currentTask = task
