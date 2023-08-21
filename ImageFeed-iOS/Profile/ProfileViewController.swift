@@ -5,9 +5,18 @@
 //  Created by Artem Dubovitsky on 23.07.2023.
 //
 import UIKit
+import Kingfisher
 
 final class ProfileViewController: UIViewController {
-    
+    let profileService = ProfileService.shared
+    let profileImageService = ProfileImageService.shared
+    private var profile: Profile = Profile(
+        username: "ekaterina_nov",
+        name: "Екатерина Новикова",
+        loginName: "@ekaterina_nov",
+        bio: "Hello, world!"
+    )
+    private var profileImageServiceObserver: NSObjectProtocol?
     // MARK: - Private Properties
     private let avatarImageView: UIImageView = {
         let imageView = UIImageView()
@@ -59,6 +68,7 @@ final class ProfileViewController: UIViewController {
     // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
+
         view.backgroundColor = .ypBlack
         
         view.addSubview(avatarImageView)
@@ -67,6 +77,66 @@ final class ProfileViewController: UIViewController {
         view.addSubview(descriptionLabel)
         view.addSubview(logoutButton)
         
+        if let profile = profileService.profile {
+            self.profile = profile
+            updateProfileDetails(profile: profile)
+        } else {
+            print("error")
+        }
+        
+        if let url = profileImageService.avatarURL {
+            updateAvatar(url: url)
+        }
+        
+        profileImageServiceObserver = NotificationCenter.default
+            .addObserver(
+                forName: ProfileImageService.DidChangeNotification,
+                object: nil,
+                queue: .main
+            ) { [weak self] notification in
+                self?.updateAvatar(notification: notification)
+            }
+        setupProfileViewConstrains()
+    }
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        guard let profile = profileService.profile else {
+            assertionFailure("no saved profile")
+            return }
+        self.nameLabel.text = profile.name
+        self.descriptionLabel.text = profile.bio
+        self.loginNameLabel.text = profile.loginName
+        
+        profileImageService.fetchProfileImageURL(userName: profile.username) { _ in }
+    }
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        .lightContent
+    }
+    // MARK: - Private Methods
+    private func updateProfileDetails(profile: Profile) {
+        self.profile = profile
+        nameLabel.text = profile.name
+        loginNameLabel.text = profile.loginName
+        descriptionLabel.text = profile.bio
+    }
+    
+    @objc
+    private func updateAvatar(notification: Notification) {
+        guard
+            isViewLoaded,
+            let userInfo = notification.userInfo,
+            let profileImageURL = userInfo["URL"] as? String,
+            let url = URL(string: profileImageURL)
+        else { return }
+        updateAvatar(url: url)
+    }
+    
+    private func updateAvatar(url: URL) {
+        avatarImageView.kf.indicatorType = .activity
+        avatarImageView.kf.setImage(with: url)
+    }
+    
+    private func setupProfileViewConstrains() {
         NSLayoutConstraint.activate([
             avatarImageView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 16),
             avatarImageView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 32),
@@ -87,9 +157,6 @@ final class ProfileViewController: UIViewController {
             logoutButton.widthAnchor.constraint(equalToConstant: 44),
             logoutButton.heightAnchor.constraint(equalToConstant: 44)
         ])
-    }
-    override var preferredStatusBarStyle: UIStatusBarStyle {
-        .lightContent
     }
     // MARK: - IBAction
     @objc
