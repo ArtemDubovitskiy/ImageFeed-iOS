@@ -24,7 +24,7 @@ final class ProfileService {
     ) {
         assert(Thread.isMainThread)
         guard let request = makefetchProfileRequest() else {
-            assertionFailure("Invalid fetchProfile request")
+            print("Invalid fetchProfile request")
             completion(.failure(NetworkError.invalidRequest))
             return
         }

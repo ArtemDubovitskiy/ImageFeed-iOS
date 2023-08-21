@@ -26,7 +26,7 @@ final class ProfileImageService {
     ) {
         assert(Thread.isMainThread)
         guard let request = makeProfileImageRequest(userName: userName) else {
-            assertionFailure("Invalid fetchProfileImageRequest request")
+            print("Invalid fetchProfileImageRequest request")
             completion(.failure(NetworkError.invalidRequest))
             return
         }
