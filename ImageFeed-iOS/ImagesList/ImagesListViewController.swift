@@ -9,6 +9,8 @@ import UIKit
 final class ImagesListViewController: UIViewController {
     private let ShowSingleImageSegueIdentifier = "ShowSingleImage"
     private let photosName: [String] = Array(0..<20).map{ "\($0)" }
+    private let imagesListService = ImagesListService.shared
+    private let photos: [Photo] = []
     
     private lazy var dateFormatter: DateFormatter = {
         let formatter = DateFormatter()
@@ -60,6 +62,10 @@ extension ImagesListViewController: UITableViewDelegate {
         let scale = imageViewWight / imageWight
         let cellHight = image.size.height * scale + imageInsets.top + imageInsets.bottom
         return cellHight
+    }
+    
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        imagesListService.fetchPhotosNextPage(completion: <#T##(Result<Photo, Error>) -> Void#>)
     }
 }
 // MARK: - UITableViewDataSource
