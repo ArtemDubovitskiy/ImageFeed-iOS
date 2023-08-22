@@ -65,7 +65,7 @@ extension ImagesListViewController: UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        imagesListService.fetchPhotosNextPage(completion: <#T##(Result<Photo, Error>) -> Void#>)
+        imagesListService.fetchPhotosNextPage()
     }
 }
 // MARK: - UITableViewDataSource

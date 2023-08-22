@@ -20,7 +20,7 @@ final class ImagesListService {
     }
     
     func fetchPhotosNextPage(
-        completion: @escaping (Result<Photo, Error>) -> Void
+//        completion: @escaping (Result<Photo, Error>) -> Void
     ) {
         assert(Thread.isMainThread)
         
@@ -30,7 +30,7 @@ final class ImagesListService {
         
         guard let request = makeImagesListRequest(page: nextPage) else {
             print("Invalid fetchProfile request")
-            completion(.failure(NetworkError.invalidRequest))
+//            completion(.failure(NetworkError.invalidRequest))
             return
         }
 
@@ -47,12 +47,12 @@ final class ImagesListService {
                     NotificationCenter.default
                         .post(
                             name: ImagesListService.DidChangeNotification,
-                            object: nil)
+                            object: self)
 //                    completion(.success(photos))
                 case .failure(let error):
                     print(error)
 //                    break
-                    completion(.failure(error))
+//                    completion(.failure(error))
                 }
             }
         }
