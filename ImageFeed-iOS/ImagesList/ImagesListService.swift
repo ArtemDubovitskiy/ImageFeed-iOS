@@ -7,7 +7,6 @@
 import Foundation
 
 final class ImagesListService {
-    static let shared = ImagesListService()
     static let DidChangeNotification = Notification.Name(rawValue: "ImagesListServiceDidChange")
     private let urlSession = URLSession.shared
     private var currentTask: URLSessionTask?
@@ -19,9 +18,7 @@ final class ImagesListService {
         self.builder = builder
     }
     
-    func fetchPhotosNextPage(
-        completion: @escaping (Result<Photo, Error>) -> Void
-    ) {
+    func fetchPhotosNextPage() {
         assert(Thread.isMainThread)
         
         let nextPage = lastLoadedPage == nil
@@ -29,11 +26,9 @@ final class ImagesListService {
         : lastLoadedPage! + 1
         
         guard let request = makeImagesListRequest(page: nextPage) else {
-            print("Invalid fetchProfile request")
-            completion(.failure(NetworkError.invalidRequest))
+            print("Invalid fetchPhotos request")
             return
         }
-
         let task = urlSession.objectTask(for: request) {
             [weak self] (result: Result<[PhotoResult], Error>) in
             DispatchQueue.main.async {
@@ -48,11 +43,9 @@ final class ImagesListService {
                         .post(
                             name: ImagesListService.DidChangeNotification,
                             object: nil)
-//                    completion(.success(photos))
+                    print("\(nextPage)") // удалить перед ревью
                 case .failure(let error):
                     print(error)
-//                    break
-                    completion(.failure(error))
                 }
             }
         }
