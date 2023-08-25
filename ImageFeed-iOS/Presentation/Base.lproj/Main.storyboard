@@ -48,6 +48,9 @@
                                                     <rect key="frame" x="354" y="4" width="44" height="44"/>
                                                     <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                                     <state key="normal" image="like_button_active"/>
+                                                    <connections>
+                                                        <action selector="likeButtonClicked:" destination="fLa-xf-zG3" eventType="touchUpInside" id="fJ1-Ha-oMT"/>
+                                                    </connections>
                                                 </button>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="27 августа 2022" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hbc-Mj-MfI" userLabel="Date Label">
                                                     <rect key="frame" x="32" y="127" width="102.5" height="16"/>

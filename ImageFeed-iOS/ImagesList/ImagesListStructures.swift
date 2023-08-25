@@ -40,6 +40,10 @@ struct UrlsResult: Codable {
     let thumb: String?
 }
 
+struct LikeResult: Decodable {
+    let photo: PhotoResult
+}
+
 struct Photo {
     let id: String
     let size: CGSize

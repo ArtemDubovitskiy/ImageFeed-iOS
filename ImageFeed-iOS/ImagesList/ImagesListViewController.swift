@@ -13,6 +13,7 @@ final class ImagesListViewController: UIViewController {
     private let imagesListService = ImagesListService()
     private var imageListServiceObserver: NSObjectProtocol?
     private let placeholder = UIImage(named: "Stub")
+    weak var delegate: ImagesListCellDelegate?
     var photos: [Photo] = []
 
     // MARK: - Outlets
@@ -80,7 +81,6 @@ extension ImagesListViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return photos.count
     }
-    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: ImagesListCell.reuseIdentifier, for: indexPath)
         
@@ -88,13 +88,39 @@ extension ImagesListViewController: UITableViewDataSource {
             return UITableViewCell()
         }
         configCell(for: imageListCell, with: indexPath)
-
         return imageListCell
+    }
+}
+// MARK: - ImagesListCellDelegate
+extension ImagesListViewController: ImagesListCellDelegate {
+    func imageListCellDidTapLike(_ cell: ImagesListCell) {
+        guard let indexPath = tableView.indexPath(for: cell) else { return }
+        let photo = photos[indexPath.row]
+        UIBlockingProgressHUD.show()
+        imagesListService.changeLike(photoId: photo.id, isLike: !photo.isLiked) { result in
+            switch result {
+            case .success:
+                self.photos = self.imagesListService.photos
+                cell.setIsLiked(isLiked: self.photos[indexPath.row].isLiked)
+                UIBlockingProgressHUD.dismiss()
+            case .failure (let error):
+                UIBlockingProgressHUD.dismiss()
+                let alert = UIAlertController(
+                            title: "Что-то пошло не так(",
+                            message: "\(error.localizedDescription)",
+                            preferredStyle: .alert)
+                alert.addAction(UIAlertAction(
+                            title: "Ок",
+                            style: .default))
+                self.present(alert, animated: true, completion: nil)
+            }
+        }
     }
 }
 // MARK: - ConfigCell
 extension ImagesListViewController {
     func configCell(for cell: ImagesListCell, with indexPath: IndexPath) {
+        cell.delegate = self
         let photo = photos[indexPath.row]
         if let thumbImageUrl = URL(string: photo.thumbImageURL) {
             cell.cellImage.kf.indicatorType = .activity
@@ -106,15 +132,13 @@ extension ImagesListViewController {
                 switch result {
                 case .success:
                     cell.date(photo.createdAt)
+                    cell.setIsLiked(isLiked: self.photos[indexPath.row].isLiked)
                     self.photos = self.imagesListService.photos
-//                    self.tableView.reloadRows(at: [indexPath], with: .automatic)
-                case .failure:
-                    break
+                case .failure (let error):
+                    print("Изображение не загружено: \(error)")
+                    cell.cellImage.image = placeholder
                 }
             }
-            let isLaked = indexPath.row % 2 == 0
-            let likeImage = isLaked ? UIImage(named: "like_button_active") : UIImage(named: "like_button_no_active")
-            cell.likeButton.setImage(likeImage, for: .normal)
         }
     }
 }
