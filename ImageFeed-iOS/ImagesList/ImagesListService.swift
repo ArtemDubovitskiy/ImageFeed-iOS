@@ -43,7 +43,6 @@ final class ImagesListService {
                         .post(
                             name: ImagesListService.DidChangeNotification,
                             object: nil)
-                    print("\(nextPage)") // удалить перед ревью
                 case .failure(let error):
                     print(error)
                 }
