@@ -49,9 +49,9 @@ final class ImagesListViewController: UIViewController {
             super.prepare(for: seque, sender: sender)
             return
         }
-        let imageName = photos[indexPath.row]
-        let image = UIImage(named: "\(imageName.id)_full_size") ?? UIImage(named: imageName.id)
-        viewController.image = image
+        let imageURLString = photos[indexPath.row].largeImageURL
+        let imageURL = URL(string: imageURLString)
+        viewController.imageURL = imageURL
     }
 }
 // MARK: - UITableViewDelegate
@@ -81,6 +81,7 @@ extension ImagesListViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return photos.count
     }
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: ImagesListCell.reuseIdentifier, for: indexPath)
         
