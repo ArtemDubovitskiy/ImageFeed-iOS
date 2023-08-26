@@ -46,6 +46,7 @@ final class ImagesListService {
                 case .failure(let error):
                     print(error)
                 }
+                self.currentTask = nil
             }
         }
         self.currentTask = task

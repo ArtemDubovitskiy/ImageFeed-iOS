@@ -59,7 +59,7 @@ extension Photo {
         self.init(
             id: photo.id,
             size: CGSize(width: photo.width, height: photo.height),
-            createdAt: ISO8601DateFormatter().date(from: photo.createdAt ?? ""),
+            createdAt: photo.createdAt?.convertStringToDateFormat(),
             welcomeDescription: photo.description ?? "",
             thumbImageURL: photo.urls.thumb ?? "",
             largeImageURL: photo.urls.full ?? "",

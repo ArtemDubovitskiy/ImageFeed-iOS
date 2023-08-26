@@ -18,14 +18,6 @@ final class ImagesListCell: UITableViewCell {
         delegate?.imageListCellDidTapLike(self)
     }
     
-    private lazy var dateFormatter: DateFormatter = {
-        let formatter = DateFormatter()
-        formatter.dateStyle = .long
-        formatter.timeStyle = .none
-        formatter.locale = Locale(identifier: "ru_Ru")
-        return formatter
-    }()
-    
     override func prepareForReuse() {
         super.prepareForReuse()
         cellImage.kf.cancelDownloadTask()
@@ -38,9 +30,9 @@ final class ImagesListCell: UITableViewCell {
     
     func date(_ createdAt: Date?) {
         if let createdAt = createdAt {
-            dateLabel.text = dateFormatter.string(from: createdAt)
+            dateLabel.text = DateFormatter.dateFormatter.string(from: createdAt)
         } else {
-            dateLabel.text = dateFormatter.string(from: Date())
+            dateLabel.text = ""
         }
     }
 }
