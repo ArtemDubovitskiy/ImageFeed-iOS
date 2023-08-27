@@ -198,7 +198,7 @@
         <!--WebView View Controller-->
         <scene sceneID="0sq-rd-NGA">
             <objects>
-                <viewController title="WebView View Controller" id="7w3-FD-826" customClass="WebViewViewController" customModule="ImageFeed_iOS" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="WebViewViewController" title="WebView View Controller" id="7w3-FD-826" customClass="WebViewViewController" customModule="ImageFeed_iOS" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="whx-eL-rZr">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
