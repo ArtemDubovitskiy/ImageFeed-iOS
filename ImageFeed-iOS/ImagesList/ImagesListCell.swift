@@ -5,10 +5,34 @@
 //  Created by Artem Dubovitsky on 20.07.2023.
 //
 import UIKit
+import Kingfisher
 
 final class ImagesListCell: UITableViewCell {
     static let reuseIdentifier = "ImagesListCell"
+    weak var delegate: ImagesListCellDelegate?
     @IBOutlet var cellImage: UIImageView!
     @IBOutlet var likeButton: UIButton!
     @IBOutlet var dateLabel: UILabel!
+    
+    @IBAction func likeButtonClicked(_ sender: Any) {
+        delegate?.imageListCellDidTapLike(self)
+    }
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        cellImage.kf.cancelDownloadTask()
+    }
+    
+    func setIsLiked(isLiked: Bool) {
+        let likeImage = isLiked ? UIImage(named: "like_button_active") : UIImage(named: "like_button_no_active")
+        likeButton.setImage(likeImage, for: .normal)
+    }
+    
+    func date(_ createdAt: Date?) {
+        if let createdAt = createdAt {
+            dateLabel.text = DateFormatter.dateFormatter.string(from: createdAt)
+        } else {
+            dateLabel.text = ""
+        }
+    }
 }

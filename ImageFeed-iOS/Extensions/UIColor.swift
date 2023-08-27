@@ -1,5 +1,5 @@
 //
-//  Colours.swift
+//  UIColor.swift
 //  ImageFeed-iOS
 //
 //  Created by Artem Dubovitsky on 25.07.2023.

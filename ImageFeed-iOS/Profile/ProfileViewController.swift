@@ -168,12 +168,15 @@ final class ProfileViewController: UIViewController {
         
         alert.addAction(UIAlertAction(
                     title: "Да",
-                    style: .default,
-                    handler: nil))
+                    style: .default){ _ in
+                        self.profileService.logout()
+                        self.present(SplashViewController(), animated: true)
+                    })
         alert.addAction(UIAlertAction(
                     title: "Нет",
-                    style: .default,
-                    handler: nil))
+                    style: .default) { _ in
+                        self.dismiss(animated: true)
+                    })
         self.present(alert, animated: true, completion: nil)
     }
 }

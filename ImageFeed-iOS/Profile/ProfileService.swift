@@ -5,6 +5,7 @@
 //  Created by Artem Dubovitsky on 14.08.2023.
 //
 import Foundation
+import WebKit
 
 final class ProfileService {
     static let shared = ProfileService()
@@ -13,10 +14,13 @@ final class ProfileService {
     private (set) var profile: Profile?
     private var currentTask: URLSessionTask?
     private let builder: URLRequestBuider
+    private let storage: OAuth2TokenStorage
     private var lastToken: String?
     
-    init(builder: URLRequestBuider = .shared) {
+    init(builder: URLRequestBuider = .shared,
+         storage: OAuth2TokenStorage = .shared) {
         self.builder = builder
+        self.storage = storage
     }
     
     func fetchProfile(
@@ -45,6 +49,21 @@ final class ProfileService {
         self.currentTask = task
         task.resume()
     }
+    
+    func logout() {
+        ProfileService.clean()
+        storage.clearToken()
+    }
+    
+    static func clean() {
+       HTTPCookieStorage.shared.removeCookies(since: Date.distantPast)
+       WKWebsiteDataStore.default().fetchDataRecords(ofTypes: WKWebsiteDataStore.allWebsiteDataTypes()) { records in
+          records.forEach { record in
+             WKWebsiteDataStore.default().removeData(ofTypes: record.dataTypes, for: [record], completionHandler: {})
+          }
+       }
+    }
+    
     // MARK: - Private Methods
     private func makefetchProfileRequest() -> URLRequest? {
         builder.makeHTTPRequest(
