@@ -21,6 +21,8 @@ final class ImagesListService {
     func fetchPhotosNextPage() {
         assert(Thread.isMainThread)
         
+        guard currentTask == nil else { return }
+        
         let nextPage = lastLoadedPage == nil
         ? 1
         : lastLoadedPage! + 1
