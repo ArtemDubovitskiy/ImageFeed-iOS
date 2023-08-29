@@ -39,7 +39,10 @@ final class ImageFeed_iOSUITests: XCTestCase {
         
         passwordTextField.tap()
         passwordTextField.typeText(password)
-        webView.swipeUp()
+        sleep(1)
+        
+        app.toolbars.buttons["Done"].tap()
+        sleep(1)
         
         webView.buttons["Login"].tap()
         

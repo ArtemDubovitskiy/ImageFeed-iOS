@@ -39,19 +39,20 @@ final class ImagesListPresenter: ImagesListPresenterProtocol {
         imagesListService.fetchPhotosNextPage()
     }
     
-    func changeLike(photoId: String,
-                    isLike: Bool,
-                    _ completion: @escaping (Result<Void, Error>) -> Void
-    ) { imagesListService.changeLike(photoId: photoId, isLike: isLike, {
-        [weak self ] result in
-        guard let self = self else { return }
-        switch result{
-        case .success(_):
-            completion(.success(()))
-        case .failure(let error):
-            completion(.failure(error))
-            print(error.localizedDescription)
-        }
-    })
+    func changeLike(
+        photoId: String,
+        isLike: Bool,
+        _ completion: @escaping (Result<Void, Error>) -> Void
+    ) {
+        imagesListService.changeLike(photoId: photoId, isLike: isLike, { [weak self ] result in
+            guard let self = self else { return }
+            switch result{
+                case .success(_):
+                    completion(.success(()))
+                case .failure(let error):
+                    completion(.failure(error))
+                    print(error.localizedDescription)
+            }
+        })
     }
 }
