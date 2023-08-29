@@ -68,6 +68,7 @@ final class ProfileViewController: UIViewController & ProfileViewControllerProto
         button.contentEdgeInsets = UIEdgeInsets(top: 11, left: 16, bottom: 11, right: 8)
         button.tintColor = .ypRed
         button.translatesAutoresizingMaskIntoConstraints = false
+        button.accessibilityIdentifier = "Logout button"
         return button
     }()
     
