@@ -14,7 +14,6 @@ final class ProfileImageService {
     private var currentTask: URLSessionTask?
     private let builder: URLRequestBuider
     private (set) var avatarURL: URL?
-    private var lastUserName: String?
     
     init(builder: URLRequestBuider = .shared) {
         self.builder = builder

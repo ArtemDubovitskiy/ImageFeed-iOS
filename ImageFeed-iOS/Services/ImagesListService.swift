@@ -7,6 +7,7 @@
 import Foundation
 
 final class ImagesListService {
+    static let shared = ImagesListService()
     static let DidChangeNotification = Notification.Name(rawValue: "ImagesListServiceDidChange")
     private let urlSession = URLSession.shared
     private var currentTask: URLSessionTask?
